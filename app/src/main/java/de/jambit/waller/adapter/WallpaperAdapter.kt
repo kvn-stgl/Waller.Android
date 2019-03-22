@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
 import de.jambit.waller.R
 import de.jambit.waller.model.WallpaperPreview
 
@@ -37,7 +38,10 @@ class WallpaperAdapter : RecyclerView.Adapter<WallpaperAdapter.ViewHolder>() {
         private var image: ImageView = view.findViewById(R.id.image_wallpaper)
 
         fun bind(value: WallpaperPreview) {
-            title.text = value.favorites.toString()
+            title.text = value.resolution
+            Picasso.with(image.context)
+                .load(value.thumb)
+                .into(image)
         }
     }
 }
