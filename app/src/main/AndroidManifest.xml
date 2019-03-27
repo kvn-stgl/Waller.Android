@@ -16,15 +16,8 @@
             android:theme="@style/AppTheme"
             tools:ignore="GoogleAppIndexingWarning">
         <activity
-                android:name=".WallpaperActivity"
-                android:label="@string/title_activity_wallpaper"
-                android:parentActivityName=".MainActivity"
-                android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                    android:name="android.support.PARENT_ACTIVITY"
-                    android:value="de.jambit.waller.MainActivity"/>
-        </activity>
-        <activity android:name=".MainActivity">
+                android:name=".ui.MainActivity"
+                android:label="@string/title_activity_main">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 

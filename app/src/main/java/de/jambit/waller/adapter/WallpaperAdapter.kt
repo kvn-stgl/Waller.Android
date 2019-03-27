@@ -1,16 +1,22 @@
 package de.jambit.waller.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.cardview.widget.CardView
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import de.jambit.waller.R
 import de.jambit.waller.model.WallpaperPreview
+import de.jambit.waller.ui.WallpaperListDirections
 
-class WallpaperAdapter : RecyclerView.Adapter<WallpaperAdapter.ViewHolder>() {
+
+class WallpaperAdapter(val context: Context) : RecyclerView.Adapter<WallpaperAdapter.ViewHolder>() {
     var list: List<WallpaperPreview> = arrayListOf()
         set(value) {
             field = value
@@ -33,15 +39,32 @@ class WallpaperAdapter : RecyclerView.Adapter<WallpaperAdapter.ViewHolder>() {
         return list.size
     }
 
+    companion object {
+        var GIRAFFE_PIC_URL =
+            "http://ichef.bbci.co.uk/naturelibrary/images/ic/credit/640x395/g/gi/giraffe/giraffe_1.jpg"
+    }
+
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private var title: TextView = view.findViewById(R.id.title_wallpaper)
         private var image: ImageView = view.findViewById(R.id.image_wallpaper)
+        private var view: CardView = view as CardView
 
         fun bind(value: WallpaperPreview) {
+            image.transitionName = context.getString(R.string.transition_wallpaper, value.id)
+
             title.text = value.resolution
             Picasso.with(image.context)
                 .load(value.thumb)
                 .into(image)
+
+            view.setOnClickListener {
+                val extras = FragmentNavigatorExtras(
+                    image to image.transitionName
+                )
+
+                val detailAction = WallpaperListDirections.actionNavigationDetail().setId(value.id)
+                Navigation.findNavController(it).navigate(detailAction, extras)
+            }
         }
     }
 }

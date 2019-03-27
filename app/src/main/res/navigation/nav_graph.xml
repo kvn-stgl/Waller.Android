@@ -1,4 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/nav_graph"
-/>
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools" android:id="@+id/mobile_navigation"
+            app:startDestination="@+id/navigation_toplist">
+
+    <fragment android:id="@+id/navigation_toplist" android:name="de.jambit.waller.ui.WallpaperList"
+              android:label="@string/title_toplist" tools:layout="@layout/wallpaper_list_fragment">
+        <action android:id="@+id/action_navigation_detail" app:destination="@id/navigation_detail"
+                app:exitAnim="@anim/nav_default_exit_anim"/>
+        <argument android:name="DisplayType"
+                  android:defaultValue="TOPLIST"
+                  app:argType="de.jambit.waller.ui.DisplayType"/>
+    </fragment>
+    <fragment android:id="@+id/navigation_latest" android:name="de.jambit.waller.ui.WallpaperList"
+              android:label="@string/title_latest" tools:layout="@layout/wallpaper_list_fragment">
+        <action android:id="@+id/action_navigation_detail" app:destination="@id/navigation_detail"/>
+        <argument android:name="DisplayType"
+                  android:defaultValue="LATEST"
+                  app:argType="de.jambit.waller.ui.DisplayType"/>
+    </fragment>
+    <fragment android:id="@+id/navigation_random" android:name="de.jambit.waller.ui.WallpaperList"
+              android:label="@string/title_random" tools:layout="@layout/wallpaper_list_fragment">
+        <action android:id="@+id/action_navigation_detail" app:destination="@id/navigation_detail"/>
+        <argument android:name="DisplayType"
+                  android:defaultValue="RANDOM"
+                  app:argType="de.jambit.waller.ui.DisplayType"/>
+    </fragment>
+    <fragment android:id="@+id/navigation_detail" android:name="de.jambit.waller.ui.WallpaperDetail"
+              android:label="@string/title_wallpaper_detail"
+              tools:layout="@layout/wallpaper_detail_fragment">
+        <argument android:name="id" app:argType="long" android:defaultValue="0L"/>
+    </fragment>
+</navigation>
