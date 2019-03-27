@@ -3,19 +3,15 @@ package de.jambit.waller.extension
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.widget.ImageView
 import java.io.*
 
 /**
  * Converts LiveData into a Flowable
  */
-fun ImageView.cachedPicasso(context: Context, url: String?) {
-    if (url == null) return
+fun cacheFile(context: Context, url: String?): Bitmap? {
+    if (url == null) return null
 
-    val bitmap = getCachedBitmap(context, url)
-    if (bitmap != null) {
-        this.setImageBitmap(bitmap)
-    }
+    return getCachedBitmap(context, url)
 }
 
 
