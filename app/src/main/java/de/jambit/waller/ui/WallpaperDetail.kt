@@ -4,12 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageSwitcher
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.navArgs
 import androidx.transition.TransitionInflater
 import com.squareup.picasso.Picasso
+import de.jambit.waller.ImageSwitcherPicasso
 import de.jambit.waller.R
 import kotlinx.android.synthetic.main.view_item_wallpaper.*
 
@@ -22,7 +24,6 @@ class WallpaperDetail : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        postponeEnterTransition()
 
         val transition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
 
@@ -39,29 +40,19 @@ class WallpaperDetail : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        image_wallpaper.transitionName = getString(R.string.transition_wallpaper, wallpaperArgs.id)
+        val preview = wallpaperArgs.wallpaperPreview
+
+        image_wallpaper.transitionName = getString(R.string.transition_wallpaper, preview.id)
+        image_wallpaper.cachedPicasso(requireContext(), preview.thumb)
 
         viewModel = ViewModelProviders.of(this).get(WallpaperDetailViewModel::class.java)
 
-        viewModel.wallpaper(wallpaperArgs.id).observe(viewLifecycleOwner, Observer {
+        val imageSwitcher = ImageSwitcherPicasso(requireContext(), ImageSwitcher(context))
+        viewModel.wallpaper(preview.id).observe(viewLifecycleOwner, Observer {
             Picasso.with(context)
                 .load(it.imageUrl)
-                .fit()
-                .noFade()
-                .centerCrop()
-                .into(
-                    image_wallpaper
-//                    ,object : Callback {
-//                        override fun onSuccess() {
-//                            startPostponedEnterTransition()
-//                        }
-//
-//                        override fun onError() {
-//                            // empty method. (looks ugly)
-//                            startPostponedEnterTransition()
-//                        }
-//                    }
-                )
+                .noPlaceholder()
+                .into(imageSwitcher)
         })
     }
 

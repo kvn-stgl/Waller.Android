@@ -29,6 +29,6 @@
     <fragment android:id="@+id/navigation_detail" android:name="de.jambit.waller.ui.WallpaperDetail"
               android:label="@string/title_wallpaper_detail"
               tools:layout="@layout/wallpaper_detail_fragment">
-        <argument android:name="id" app:argType="long" android:defaultValue="0L"/>
+        <argument android:name="wallpaperPreview" app:argType="de.jambit.waller.model.WallpaperPreview"/>
     </fragment>
 </navigation>

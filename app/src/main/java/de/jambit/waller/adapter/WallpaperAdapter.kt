@@ -39,11 +39,6 @@ class WallpaperAdapter(val context: Context) : RecyclerView.Adapter<WallpaperAda
         return list.size
     }
 
-    companion object {
-        var GIRAFFE_PIC_URL =
-            "http://ichef.bbci.co.uk/naturelibrary/images/ic/credit/640x395/g/gi/giraffe/giraffe_1.jpg"
-    }
-
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private var title: TextView = view.findViewById(R.id.title_wallpaper)
         private var image: ImageView = view.findViewById(R.id.image_wallpaper)
@@ -62,7 +57,7 @@ class WallpaperAdapter(val context: Context) : RecyclerView.Adapter<WallpaperAda
                     image to image.transitionName
                 )
 
-                val detailAction = WallpaperListDirections.actionNavigationDetail().setId(value.id)
+                val detailAction = WallpaperListDirections.actionNavigationDetail(value)
                 Navigation.findNavController(it).navigate(detailAction, extras)
             }
         }
