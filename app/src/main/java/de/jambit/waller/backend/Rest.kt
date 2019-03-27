@@ -32,6 +32,7 @@ object Rest {
                 return@addInterceptor it.proceed(builder.build())
             })
             .addInterceptor(logging)
+            .readTimeout(30, TimeUnit.SECONDS)
             .connectTimeout(30, TimeUnit.SECONDS)
             .build()
 

@@ -13,6 +13,7 @@ import androidx.transition.TransitionInflater
 import com.squareup.picasso.Picasso
 import de.jambit.waller.ImageSwitcherPicasso
 import de.jambit.waller.R
+import de.jambit.waller.extension.cachedPicasso
 import kotlinx.android.synthetic.main.view_item_wallpaper.*
 
 
