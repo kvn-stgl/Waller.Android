@@ -1,4 +1,4 @@
-package de.jambit.waller.ui
+package de.kevin_stieglitz.waller.ui
 
 import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
@@ -11,12 +11,14 @@ import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.navArgs
 import androidx.transition.TransitionInflater
+import com.github.chrisbanes.photoview.PhotoView
 import com.squareup.picasso.Picasso
-import de.jambit.waller.ImageSwitcherPicasso
-import de.jambit.waller.R
-import de.jambit.waller.extension.cacheFile
+import de.kevin_stieglitz.waller.ImageSwitcherPicasso
+import de.kevin_stieglitz.waller.R
+import de.kevin_stieglitz.waller.extension.cacheFile
 import kotlinx.android.synthetic.main.wallpaper_detail_fragment.*
 
 
@@ -46,8 +48,12 @@ class WallpaperDetail : Fragment() {
 
         val preview = wallpaperArgs.wallpaperPreview
 
-        imageswitcher_wallpaper.transitionName = getString(de.jambit.waller.R.string.transition_wallpaper, preview.id)
-        // image_wallpaper.cachedPicasso(requireContext(), preview.thumb)
+        imageswitcher_wallpaper.transitionName = getString(R.string.transition_wallpaper, preview.id)
+
+        // Back Button
+        back.setOnClickListener {
+            NavHostFragment.findNavController(this).navigateUp()
+        }
 
         // Animation when switching to another image.
         val animOut = AnimationUtils.loadAnimation(context, android.R.anim.fade_out)
@@ -56,11 +62,13 @@ class WallpaperDetail : Fragment() {
         imageswitcher_wallpaper.inAnimation = animIn
         imageswitcher_wallpaper.outAnimation = animOut
         imageswitcher_wallpaper.setFactory {
-            val imageView = ImageView(context)
+            val imageView = PhotoView(context)
             imageView.layoutParams =
                 FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT)
+            imageView.scaleType = ImageView.ScaleType.CENTER_CROP
             return@setFactory imageView
         }
+
         imageswitcher_wallpaper.setImageDrawable(
             BitmapDrawable(
                 requireContext().resources,
@@ -70,13 +78,15 @@ class WallpaperDetail : Fragment() {
 
         viewModel = ViewModelProviders.of(this).get(WallpaperDetailViewModel::class.java)
 
-        val imageSwitcher = ImageSwitcherPicasso(requireContext(), imageswitcher_wallpaper)
+        val imageSwitcher = ImageSwitcherPicasso(requireContext(), imageswitcher_wallpaper, progress)
+
         viewModel.wallpaper(preview.id).observe(viewLifecycleOwner, Observer {
             Picasso.with(context)
                 .load(it.imageUrl)
                 .noPlaceholder()
                 .into(imageSwitcher)
+
+
         })
     }
-
 }

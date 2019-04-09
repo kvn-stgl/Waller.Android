@@ -1,21 +1,18 @@
-package de.jambit.waller.ui
+package de.kevin_stieglitz.waller.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.navArgs
-import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import de.jambit.waller.R
-import de.jambit.waller.adapter.WallpaperAdapter
-import kotlinx.android.synthetic.main.activity_main.*
+import de.kevin_stieglitz.waller.R
+import de.kevin_stieglitz.waller.adapter.WallpaperAdapter
 import kotlinx.android.synthetic.main.wallpaper_list_fragment.*
 
 
@@ -35,17 +32,10 @@ class WallpaperList : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val activity = this.activity
-        if (activity is AppCompatActivity) {
-            val navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
-            setupBottomNavMenu(navController)
-            activity.setSupportActionBar(toolbar)
-//            NavigationUI.setupActionBarWithNavController(
-//                activity,
-//                navController
-//            )
-        }
+        val navController = NavHostFragment.findNavController(this)
+        bottom_nav.setupWithNavController(navController)
     }
+
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -61,13 +51,6 @@ class WallpaperList : Fragment() {
 
         recyclerview_images.adapter = adapter
         recyclerview_images.layoutManager = GridLayoutManager(context, 2)
-    }
-
-
-    private fun setupBottomNavMenu(navController: NavController) {
-        bottom_nav?.let {
-            NavigationUI.setupWithNavController(it, navController)
-        }
     }
 
 }

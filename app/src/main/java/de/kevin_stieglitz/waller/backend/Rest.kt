@@ -1,4 +1,4 @@
-package de.jambit.waller.backend
+package de.kevin_stieglitz.waller.backend
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -10,9 +10,11 @@ import java.util.concurrent.TimeUnit
 
 object Rest {
 
-    private const val BASE_URL = "https://waller-235210.appspot.com"
+    private const val BASE_URL = "https://waller.kevin-stieglitz.de/"
 
-    val retrofit: WallerApi
+    private const val WALLER_RESIZE_URL = "image/resize/%d/%d.jpg"
+
+    val waller: WallerApi
 
     init {
 
@@ -36,12 +38,16 @@ object Rest {
             .connectTimeout(30, TimeUnit.SECONDS)
             .build()
 
-        retrofit = Retrofit.Builder()
+        waller = Retrofit.Builder()
             .baseUrl(BASE_URL)
             .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()
             .create(WallerApi::class.java)
+    }
+
+    fun wallerResizeUrl(id: Long, height: Int): String {
+        return BASE_URL + WALLER_RESIZE_URL.format(id, height)
     }
 }

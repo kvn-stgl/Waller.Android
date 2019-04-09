@@ -1,27 +1,33 @@
-package de.jambit.waller.ui
+package de.kevin_stieglitz.waller.ui
 
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
-import de.jambit.waller.R
+import androidx.navigation.ui.setupActionBarWithNavController
+import de.kevin_stieglitz.waller.R
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        val navController = findNavController(R.id.nav_host_fragment)
+        setSupportActionBar(toolbar)
+        setupActionBarWithNavController(navController)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-//        menuInflater.inflate(R.menu.menu_toolbar, menu)
+        menuInflater.inflate(R.menu.menu_wallpaper, menu)
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        val navController = Navigation.findNavController(this, R.id.nav_host_fragment)
+        val navController = findNavController(R.id.nav_host_fragment)
         val navigated = NavigationUI.onNavDestinationSelected(item!!, navController)
         return navigated || super.onOptionsItemSelected(item)
     }
@@ -33,4 +39,6 @@ class MainActivity : AppCompatActivity() {
 //        )
 //    }
 
+    override fun onSupportNavigateUp() =
+        findNavController(R.id.nav_host_fragment).navigateUp()
 }

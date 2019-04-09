@@ -91,6 +91,7 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="action_settings">Settings</string>
+    <string name="action_about_us">About Us</string>
     <string name="action_search">Search</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="title_wallpaper_detail">Details</string>
@@ -100,6 +101,7 @@
     <string name="title_random">Random</string>
 
     <string name="transition_wallpaper">transaction_wallpaper_%d</string>
+    <string name="app_version">Version %s</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

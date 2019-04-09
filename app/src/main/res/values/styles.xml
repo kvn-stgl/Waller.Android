@@ -11,10 +11,20 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="AppTheme.Details">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
     <style name="ToolbarTheme" parent="ThemeOverlay.MaterialComponents.ActionBar">
         <item name="android:textColorPrimary">@android:color/white</item>
+    </style>
+
+    <style name="RippleStyleLight">
+        <item name="colorControlHighlight">#44FFFFFF</item>
     </style>
 </resources>

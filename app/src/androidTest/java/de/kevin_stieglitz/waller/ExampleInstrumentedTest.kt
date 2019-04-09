@@ -1,12 +1,10 @@
-package de.jambit.waller
+package de.kevin_stieglitz.waller
 
 import androidx.test.InstrumentationRegistry
 import androidx.test.runner.AndroidJUnit4
-
+import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith
-
-import org.junit.Assert.*
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -19,6 +17,6 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getTargetContext()
-        assertEquals("de.jambit.waller", appContext.packageName)
+        assertEquals("de.kevin_stieglitz.waller", appContext.packageName)
     }
 }

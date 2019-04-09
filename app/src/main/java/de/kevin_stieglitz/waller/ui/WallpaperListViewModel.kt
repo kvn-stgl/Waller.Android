@@ -1,16 +1,16 @@
-package de.jambit.waller.ui
+package de.kevin_stieglitz.waller.ui
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import de.jambit.waller.backend.Rest
-import de.jambit.waller.extension.toLiveData
-import de.jambit.waller.model.WallpaperPreviewList
+import de.kevin_stieglitz.waller.backend.Rest
+import de.kevin_stieglitz.waller.extension.toLiveData
+import de.kevin_stieglitz.waller.model.WallpaperPreviewList
 import io.reactivex.schedulers.Schedulers
 
 class WallpaperListViewModel : ViewModel() {
 
     fun wallpapers(type: DisplayType?): LiveData<WallpaperPreviewList> {
-        return Rest.retrofit
+        return Rest.waller
             .search(sorting = type?.sorting)
             .subscribeOn(Schedulers.io())
             .toFlowable()

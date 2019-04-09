@@ -1,4 +1,4 @@
-package de.jambit.waller.extension
+package de.kevin_stieglitz.waller.extension
 
 import android.content.Context
 import android.graphics.Bitmap
@@ -23,7 +23,7 @@ private fun getCachedBitmap(context: Context, url: String): Bitmap? {
         val fname = file.getName()
         if (fname.contains(".") && fname.substring(fname.lastIndexOf(".")) == ".0") {
             try {
-                val br = BufferedReader(FileReader(file))
+                val br = BufferedReader(FileReader(file) as Reader)
                 if (br.readLine().equals(url)) {
                     val image_path = CACHE_PATH + fname.replace(".0", ".1")
                     if (File(image_path).exists()) {

@@ -1,4 +1,4 @@
-package de.jambit.waller.model
+package de.kevin_stieglitz.waller.model
 
 import com.google.gson.annotations.SerializedName
 

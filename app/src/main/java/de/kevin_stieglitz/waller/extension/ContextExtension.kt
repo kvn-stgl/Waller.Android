@@ -1,4 +1,4 @@
-package de.jambit.waller.extension
+package de.kevin_stieglitz.waller.extension
 
 import android.content.Context
 import android.net.ConnectivityManager

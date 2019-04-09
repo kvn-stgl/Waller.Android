@@ -1,4 +1,4 @@
-package de.jambit.waller.adapter
+package de.kevin_stieglitz.waller.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -11,9 +11,9 @@ import androidx.navigation.Navigation
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
-import de.jambit.waller.R
-import de.jambit.waller.model.WallpaperPreview
-import de.jambit.waller.ui.WallpaperListDirections
+import de.kevin_stieglitz.waller.R
+import de.kevin_stieglitz.waller.model.WallpaperPreview
+import de.kevin_stieglitz.waller.ui.WallpaperListDirections
 
 
 class WallpaperAdapter(val context: Context) : RecyclerView.Adapter<WallpaperAdapter.ViewHolder>() {
