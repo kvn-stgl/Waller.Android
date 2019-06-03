@@ -12,12 +12,12 @@ import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import de.kevin_stieglitz.waller.R
-import de.kevin_stieglitz.waller.model.WallpaperPreview
+import de.kevin_stieglitz.waller.model.WallpaperSearchEntry
 import de.kevin_stieglitz.waller.ui.WallpaperListDirections
 
 
 class WallpaperAdapter(val context: Context) : RecyclerView.Adapter<WallpaperAdapter.ViewHolder>() {
-    var list: List<WallpaperPreview> = arrayListOf()
+    var list: List<WallpaperSearchEntry> = arrayListOf()
         set(value) {
             field = value
             notifyDataSetChanged()
@@ -44,12 +44,16 @@ class WallpaperAdapter(val context: Context) : RecyclerView.Adapter<WallpaperAda
         private var image: ImageView = view.findViewById(R.id.image_wallpaper)
         private var view: CardView = view as CardView
 
-        fun bind(value: WallpaperPreview) {
+        fun bind(value: WallpaperSearchEntry) {
+            if (value.id == null) {
+                return
+            }
+
             image.transitionName = context.getString(R.string.transition_wallpaper, value.id)
 
             title.text = value.resolution
             Picasso.with(image.context)
-                .load(value.thumb)
+                .load(value.thumbs?.large)
                 .into(image)
 
             view.setOnClickListener {
@@ -57,7 +61,7 @@ class WallpaperAdapter(val context: Context) : RecyclerView.Adapter<WallpaperAda
                     image to image.transitionName
                 )
 
-                val detailAction = WallpaperListDirections.actionNavigationDetail(value)
+                val detailAction = WallpaperListDirections.actionNavigationDetail(value.id, value.thumbs?.large)
                 Navigation.findNavController(it).navigate(detailAction, extras)
             }
         }

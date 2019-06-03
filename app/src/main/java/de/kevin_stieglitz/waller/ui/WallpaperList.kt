@@ -44,8 +44,8 @@ class WallpaperList : Fragment() {
         val adapter = WallpaperAdapter(requireContext())
 
         viewModel.wallpapers(wallpaperListArgs.displayType).observe(viewLifecycleOwner, Observer {
-            if (it?.images != null) {
-                adapter.list = it.images
+            if (it?.wallpaperSearchEntries?.isNotEmpty() == true) {
+                adapter.list = it.wallpaperSearchEntries
             }
         })
 

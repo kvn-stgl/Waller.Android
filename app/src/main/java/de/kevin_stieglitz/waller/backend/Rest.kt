@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit
 
 object Rest {
 
-    private const val BASE_URL = "https://waller.kevin-stieglitz.de/"
+    private const val BASE_URL = "https://wallhaven.cc"
 
     private const val WALLER_RESIZE_URL = "image/resize/%d/%d.jpg"
 

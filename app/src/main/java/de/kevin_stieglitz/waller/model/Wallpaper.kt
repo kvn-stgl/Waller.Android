@@ -4,99 +4,158 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 
+class WallpaperData {
+
+    @SerializedName("data")
+    val data: Wallpaper = Wallpaper()
+}
+
+
 class Wallpaper {
 
-    @SerializedName("Category")
-    @Expose
-    var category: String? = null
+    @SerializedName("id")
+    val id: String? = null
 
-    @SerializedName("Favorites")
+    @SerializedName("url")
     @Expose
-    var favorites: Int? = null
+    val url: String? = null
 
-    @SerializedName("ImageColors")
+    @SerializedName("short_url")
     @Expose
-    var imageColors: List<String>? = null
+    val shortUrl: String? = null
 
-    @SerializedName("ImageUrl")
+    @SerializedName("uploader")
     @Expose
-    var imageUrl: String? = null
+    val uploader: Uploader = Uploader()
 
-    @SerializedName("Purity")
+    @SerializedName("views")
     @Expose
-    var purity: String? = null
+    val views: Int? = null
 
-    @SerializedName("Ratio")
+    @SerializedName("favorites")
     @Expose
-    var ratio: String? = null
+    val favorites: Int? = null
 
-    @SerializedName("Resolution")
+    @SerializedName("source")
     @Expose
-    var resolution: String? = null
+    val source: String? = null
 
-    @SerializedName("ShortUrl")
+    @SerializedName("purity")
     @Expose
-    var shortUrl: String? = null
+    val purity: String? = null
 
-    @SerializedName("Size")
+    @SerializedName("category")
     @Expose
-    var size: String? = null
+    val category: String? = null
 
-    @SerializedName("Tags")
+    @SerializedName("dimension_x")
     @Expose
-    var tags: List<String>? = null
+    val dimensionX: Int? = null
 
-    @SerializedName("TagsEx")
+    @SerializedName("dimension_y")
     @Expose
-    var tagsEx: List<TagsEx>? = null
+    val dimensionY: Int? = null
 
-    @SerializedName("UploadTime")
+    @SerializedName("resolution")
     @Expose
-    var uploadTime: String? = null
+    val resolution: String? = null
 
-    @SerializedName("Uploader")
+    @SerializedName("ratio")
     @Expose
-    var uploader: Uploader? = null
+    val ratio: String? = null
 
-    @SerializedName("Views")
+    @SerializedName("file_size")
     @Expose
-    var views: Int? = null
+    val fileSize: Int? = null
+
+    @SerializedName("file_type")
+    @Expose
+    val fileType: String? = null
+
+    @SerializedName("created_at")
+    @Expose
+    val createdAt: String? = null
+
+    @SerializedName("colors")
+    @Expose
+    val colors: List<String> = listOf()
+
+    @SerializedName("path")
+    @Expose
+    val path: String? = null
+
+    @SerializedName("thumbs")
+    @Expose
+    val thumbs: Thumbs = Thumbs()
+
+    @SerializedName("tags")
+    @Expose
+    val tags: List<Tag> = listOf()
 
 }
 
-class Avatar {
+class Thumbs {
 
-    @SerializedName("200")
-    @Expose
-    var image_200: String? = null
+    @SerializedName("large")
+    val large: String? = null
 
-    @SerializedName("32")
-    @Expose
-    var image_32: String? = null
+    @SerializedName("original")
+    val original: String? = null
 
-}
-
-class TagsEx {
-
-    @SerializedName("Id")
-    var id: Int? = null
-
-    @SerializedName("Name")
-    var name: String? = null
-
-    @SerializedName("Type")
-    var type: String? = null
+    @SerializedName("small")
+    val small: String? = null
 
 }
 
 class Uploader {
 
-    @SerializedName("Avatar")
-    @Expose
-    var avatar: Avatar? = null
+    @SerializedName("username")
+    val username: String? = null
 
-    @SerializedName("Username")
-    @Expose
-    var username: String? = null
+    @SerializedName("group")
+    val group: String? = null
 
+    @SerializedName("avatar")
+    val avatar: Avatar = Avatar()
+
+}
+
+
+class Avatar {
+
+    @SerializedName("200px")
+    val image_200px: String? = null
+
+    @SerializedName("128px")
+    val image_128px: String? = null
+
+    @SerializedName("32px")
+    val image_32px: String? = null
+
+    @SerializedName("20px")
+    val image_20px: String? = null
+}
+
+class Tag {
+
+    @SerializedName("id")
+    val id: Int? = null
+
+    @SerializedName("name")
+    val name: String? = null
+
+    @SerializedName("alida")
+    val type: String? = null
+
+    @SerializedName("category_id")
+    val categoryId: Int? = null
+
+    @SerializedName("category")
+    val category: String? = null
+
+    @SerializedName("purity")
+    val purity: String? = null
+
+    @SerializedName("created_at")
+    val createdAt: String? = null
 }

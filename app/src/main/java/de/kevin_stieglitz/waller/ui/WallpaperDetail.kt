@@ -46,9 +46,7 @@ class WallpaperDetail : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val preview = wallpaperArgs.wallpaperPreview
-
-        imageswitcher_wallpaper.transitionName = getString(R.string.transition_wallpaper, preview.id)
+        imageswitcher_wallpaper.transitionName = getString(R.string.transition_wallpaper, wallpaperArgs.imageId)
 
         // Back Button
         back.setOnClickListener {
@@ -72,7 +70,7 @@ class WallpaperDetail : Fragment() {
         imageswitcher_wallpaper.setImageDrawable(
             BitmapDrawable(
                 requireContext().resources,
-                cacheFile(requireContext(), preview.thumb)
+                cacheFile(requireContext(), wallpaperArgs.imageThumb)
             )
         )
 
@@ -80,13 +78,11 @@ class WallpaperDetail : Fragment() {
 
         val imageSwitcher = ImageSwitcherPicasso(requireContext(), imageswitcher_wallpaper, progress)
 
-        viewModel.wallpaper(preview.id).observe(viewLifecycleOwner, Observer {
+        viewModel.wallpaper(wallpaperArgs.imageId).observe(viewLifecycleOwner, Observer {
             Picasso.with(context)
-                .load(it.imageUrl)
+                .load(it.path)
                 .noPlaceholder()
                 .into(imageSwitcher)
-
-
         })
     }
 }

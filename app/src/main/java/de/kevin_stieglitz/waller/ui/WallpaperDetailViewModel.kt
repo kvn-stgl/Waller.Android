@@ -9,10 +9,11 @@ import io.reactivex.schedulers.Schedulers
 
 class WallpaperDetailViewModel : ViewModel() {
 
-    fun wallpaper(id: Long): LiveData<Wallpaper> {
+    fun wallpaper(id: String): LiveData<Wallpaper> {
         return Rest.waller
             .detail(id)
             .subscribeOn(Schedulers.io())
+            .map { it.data }
             .toFlowable()
             .toLiveData()
     }

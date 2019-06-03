@@ -5,6 +5,7 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupActionBarWithNavController
 import de.kevin_stieglitz.waller.R
@@ -18,7 +19,9 @@ class MainActivity : AppCompatActivity() {
 
         val navController = findNavController(R.id.nav_host_fragment)
         setSupportActionBar(toolbar)
-        setupActionBarWithNavController(navController)
+
+        val appBarConfiguration = AppBarConfiguration(setOf(R.id.navigation_toplist, R.id.navigation_latest, R.id.navigation_random))
+        setupActionBarWithNavController(navController, appBarConfiguration)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

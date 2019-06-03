@@ -100,7 +100,7 @@
     <string name="title_latest">Latest</string>
     <string name="title_random">Random</string>
 
-    <string name="transition_wallpaper">transaction_wallpaper_%d</string>
+    <string name="transition_wallpaper">transaction_wallpaper_%s</string>
     <string name="app_version">Version %s</string>
 
     <!-- TODO: Remove or change this placeholder text -->

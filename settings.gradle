@@ -1,1 +1,1 @@
-include ':app', ':wallhaven4android'
+include ':app'
