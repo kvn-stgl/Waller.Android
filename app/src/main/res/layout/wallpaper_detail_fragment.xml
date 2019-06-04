@@ -7,37 +7,25 @@
     android:layout_height="match_parent"
     tools:context="de.kevin_stieglitz.waller.ui.WallpaperDetail">
 
-    <ImageSwitcher
-        android:id="@+id/imageswitcher_wallpaper"
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/poster_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-
-    <ProgressBar
-        android:id="@+id/progress"
-        style="?android:attr/progressBarStyleLarge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:visibility="visible"/>
+        app:placeholderImage="@color/colorPrimary"
+        app:placeholderImageScaleType="centerCrop"/>
 
     <ImageView
         android:id="@+id/back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="@dimen/content_margin"
         android:layout_gravity="top|start"
-        android:src="@drawable/ic_baseline_arrow_back_24px"
-        android:tint="@android:color/white"
         android:background="?attr/selectableItemBackgroundBorderless"
+        android:padding="@dimen/content_margin"
+        android:src="@drawable/ic_baseline_arrow_back_24px"
         android:theme="@style/RippleStyleLight"
+        android:tint="@android:color/white"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="ContentDescription"/>
