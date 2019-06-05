@@ -46,19 +46,6 @@
             app:argType="de.kevin_stieglitz.waller.model.DisplayType"/>
     </fragment>
     <fragment
-        android:id="@+id/navigation_detail"
-        android:name="de.kevin_stieglitz.waller.ui.WallpaperDetailFragment"
-        android:label="@string/title_wallpaper_detail"
-        tools:layout="@layout/wallpaper_detail_fragment">
-        <argument
-            android:name="imageId"
-            app:argType="string"/>
-        <argument
-            android:name="imageThumb"
-            app:argType="string"
-            app:nullable="true"/>
-    </fragment>
-    <fragment
         android:id="@+id/action_about_us"
         android:name="de.kevin_stieglitz.waller.ui.AboutFragment"
         android:label="@string/action_about_us"/>

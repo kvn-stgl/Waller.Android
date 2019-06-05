@@ -1,27 +1,21 @@
 package de.kevin_stieglitz.waller.ui
 
-import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
+import android.view.animation.AnimationUtils
+import android.widget.FrameLayout
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.navigation.navArgs
-import com.facebook.common.executors.UiThreadImmediateExecutorService
-import com.facebook.common.references.CloseableReference
-import com.facebook.datasource.DataSource
-import com.facebook.drawee.backends.pipeline.Fresco
-import com.facebook.drawee.drawable.ScalingUtils
-import com.facebook.drawee.view.DraweeTransition
-import com.facebook.imagepipeline.datasource.BaseBitmapDataSubscriber
-import com.facebook.imagepipeline.image.CloseableImage
-import com.facebook.imagepipeline.request.ImageRequest
-import com.facebook.imagepipeline.request.ImageRequestBuilder
+import com.github.chrisbanes.photoview.PhotoView
+import com.squareup.picasso.Picasso
 import de.kevin_stieglitz.waller.R
-import kotlinx.android.synthetic.main.wallpaper_detail_fragment.*
+import de.kevin_stieglitz.waller.extension.cachedPicassoBitmap
+import de.kevin_stieglitz.waller.ui.custom.ImageSwitcherPicasso
+import kotlinx.android.synthetic.main.activity_wallpaper_detail.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import timber.log.Timber
 
 
 class WallpaperDetailActivity : AppCompatActivity() {
@@ -37,56 +31,48 @@ class WallpaperDetailActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         initView()
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            val fromScaleType = ScalingUtils.ScaleType.CENTER_CROP
-            val toScaleType = ScalingUtils.ScaleType.CENTER_CROP
-
-            window.sharedElementEnterTransition = DraweeTransition.createTransitionSet(
-                fromScaleType, toScaleType, null, null
-            )
-
-            window.sharedElementReturnTransition = DraweeTransition.createTransitionSet(
-                toScaleType, fromScaleType, null, null
-            )
-        }
     }
 
     private fun initView() {
 
-        poster_image.transitionName = getString(R.string.transition_wallpaper, wallpaperArgs.imageId)
-
-        val imagePipeline = Fresco.getImagePipeline()
-        val thumbUri = Uri.parse(wallpaperArgs.imageThumb)
-
-        // TODO: wrap into rxjava
-        val thumbDataSource = imagePipeline.fetchDecodedImage(ImageRequest.fromUri(thumbUri), this)
-        thumbDataSource.subscribe(object : BaseBitmapDataSubscriber() {
-            override fun onNewResultImpl(bitmap: Bitmap?) {
-                if (bitmap == null) return
-                poster_image.hierarchy.setPlaceholderImage(BitmapDrawable(resources, bitmap))
-            }
-
-            override fun onFailureImpl(dataSource: DataSource<CloseableReference<CloseableImage>>?) {
-                Timber.e("Error loading thumb data")
-            }
-        }, UiThreadImmediateExecutorService.getInstance())
+        imageswitcher_wallpaper.transitionName = getString(R.string.transition_wallpaper, wallpaperArgs.imageId)
 
         // Back Button
         back.setOnClickListener {
             onBackPressed()
         }
 
+        val thumbUri = Uri.parse(wallpaperArgs.imageThumb)
+
+        // Animation when switching to another image.
+        val animOut = AnimationUtils.loadAnimation(this, android.R.anim.fade_out)
+        val animIn = AnimationUtils.loadAnimation(this, android.R.anim.fade_in)
+
+        imageswitcher_wallpaper.inAnimation = animIn
+        imageswitcher_wallpaper.outAnimation = animOut
+        imageswitcher_wallpaper.setFactory {
+            val imageView = PhotoView(this)
+            imageView.layoutParams =
+                FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT)
+            imageView.scaleType = ImageView.ScaleType.CENTER_CROP
+            return@setFactory imageView
+        }
+
+
+        imageswitcher_wallpaper.setImageDrawable(
+            BitmapDrawable(
+                this.resources,
+                this.cachedPicassoBitmap(wallpaperArgs.imageThumb)
+            )
+        )
+
+        val imageSwitcher = ImageSwitcherPicasso(this, imageswitcher_wallpaper)
+
         detailViewModel.wallpaper(wallpaperArgs.imageId).observe(this, Observer {
-            val posterUri = Uri.parse(it.path)
-            val request = ImageRequestBuilder.newBuilderWithSource(posterUri)
-                .setProgressiveRenderingEnabled(true)
-                .build()
-            val controller = Fresco.newDraweeControllerBuilder()
-                .setImageRequest(request)
-                .setOldController(poster_image.controller)
-                .build()
-            poster_image.controller = controller
+            Picasso.with(this)
+                .load(it.path)
+                .noPlaceholder()
+                .into(imageSwitcher)
         })
     }
 }

@@ -4,6 +4,7 @@ import android.app.Activity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.core.app.ActivityOptionsCompat
@@ -12,7 +13,7 @@ import androidx.navigation.Navigation
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.facebook.drawee.view.SimpleDraweeView
+import com.squareup.picasso.Picasso
 import de.kevin_stieglitz.waller.R
 import de.kevin_stieglitz.waller.model.WallpaperSearchEntry
 import de.kevin_stieglitz.waller.ui.WallpaperListFragmentDirections
@@ -40,14 +41,17 @@ class WallpaperAdapter(val activity: Activity) : PagedListAdapter<WallpaperSearc
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private var title: TextView = view.findViewById(R.id.title_wallpaper)
-        private var image: SimpleDraweeView = view.findViewById(R.id.image_wallpaper)
+        private var image: ImageView = view.findViewById(R.id.image_wallpaper)
         private var view: CardView = view as CardView
 
         fun bind(value: WallpaperSearchEntry) {
             image.transitionName = activity.getString(R.string.transition_wallpaper, value.id)
 
             title.text = value.resolution
-            image.setImageURI(value.thumbs?.large)
+
+            Picasso.with(image.context)
+                .load(value.thumbs?.large)
+                .into(image)
 
             view.setOnClickListener {
 
@@ -70,7 +74,7 @@ class WallpaperAdapter(val activity: Activity) : PagedListAdapter<WallpaperSearc
 
         fun clear() {
             title.text = null
-            image.setImageURI("")
+            image.setImageDrawable(null)
             view.setOnClickListener(null)
         }
     }

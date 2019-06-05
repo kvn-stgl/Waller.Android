@@ -2,7 +2,6 @@ package de.kevin_stieglitz.waller
 
 import android.app.Application
 import androidx.room.Room
-import com.facebook.drawee.backends.pipeline.Fresco
 import de.kevin_stieglitz.waller.backend.Rest
 import de.kevin_stieglitz.waller.database.InMemoryDatabase
 import de.kevin_stieglitz.waller.extension.setInMemoryDebugDatabase
@@ -23,9 +22,6 @@ class MainApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
-
-        //Initializing
-        Fresco.initialize(this)
 
         startKoin {
             androidLogger()

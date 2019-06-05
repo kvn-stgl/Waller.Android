@@ -8,14 +8,13 @@
     android:fitsSystemWindows="true"
     tools:context=".ui.WallpaperDetailActivity">
 
-    <com.facebook.drawee.view.SimpleDraweeView
-        android:id="@+id/poster_image"
+    <ImageSwitcher
+        android:id="@+id/imageswitcher_wallpaper"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:src="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:placeholderImage="@color/colorPrimary"
-        app:placeholderImageScaleType="centerCrop"/>
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <ImageView
         android:id="@+id/back"
