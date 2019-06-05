@@ -95,11 +95,13 @@ class WallpaperPageKeyedDataSource(
                         it.meta!!.currentPage!! + 1
                     )
                     networkState.postValue(NetworkState.LOADED)
+                    initialLoad.postValue(NetworkState.LOADED)
                 }, {
                     retry = {
                         loadInitial(params, callback)
                     }
                     networkState.postValue(NetworkState.error(it.message ?: "unknown err"))
+                    initialLoad.postValue(NetworkState.LOADED)
                 })
         )
     }
