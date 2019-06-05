@@ -90,9 +90,9 @@ class WallpaperPageKeyedDataSource(
                     callback.onResult(
                         it.wallpaperSearchEntries,
                         0,
-                        it.meta!!.total!!,
+                        it.meta.total!!,
                         null,
-                        it.meta!!.currentPage!! + 1
+                        it.meta.currentPage!! + 1
                     )
                     networkState.postValue(NetworkState.LOADED)
                     initialLoad.postValue(NetworkState.LOADED)

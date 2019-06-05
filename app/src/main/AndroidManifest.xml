@@ -16,19 +16,22 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+
         <activity
             android:name=".ui.WallpaperDetailActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_wallpaper_detail"
+            android:launchMode="singleTop"
             android:parentActivityName=".ui.MainActivity"
-            android:theme="@style/FullscreenTheme">
+            android:theme="@style/WallpaperDetailTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="de.kevin_stieglitz.waller.ui.MainActivity"/>
         </activity>
+
         <activity
             android:name=".ui.MainActivity"
-            android:label="@string/title_activity_main">
+            android:label="@string/title_activity_main"
+            android:theme="@style/WallpaperListTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 

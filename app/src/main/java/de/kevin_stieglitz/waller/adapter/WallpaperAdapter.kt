@@ -1,13 +1,14 @@
 package de.kevin_stieglitz.waller.adapter
 
-import android.content.Context
+import android.app.Activity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import androidx.core.app.ActivityOptionsCompat
+import androidx.navigation.ActivityNavigatorExtras
 import androidx.navigation.Navigation
-import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -17,7 +18,7 @@ import de.kevin_stieglitz.waller.model.WallpaperSearchEntry
 import de.kevin_stieglitz.waller.ui.WallpaperListFragmentDirections
 
 
-class WallpaperAdapter(val context: Context) : PagedListAdapter<WallpaperSearchEntry, WallpaperAdapter.ViewHolder>(DIFF_CALLBACK) {
+class WallpaperAdapter(val activity: Activity) : PagedListAdapter<WallpaperSearchEntry, WallpaperAdapter.ViewHolder>(DIFF_CALLBACK) {
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
 
@@ -43,17 +44,26 @@ class WallpaperAdapter(val context: Context) : PagedListAdapter<WallpaperSearchE
         private var view: CardView = view as CardView
 
         fun bind(value: WallpaperSearchEntry) {
-            image.transitionName = context.getString(R.string.transition_wallpaper, value.id)
+            image.transitionName = activity.getString(R.string.transition_wallpaper, value.id)
 
             title.text = value.resolution
             image.setImageURI(value.thumbs?.large)
 
             view.setOnClickListener {
-                val extras = FragmentNavigatorExtras(
-                    image to image.transitionName
-                )
 
                 val detailAction = WallpaperListFragmentDirections.actionNavigationDetail(value.id, value.thumbs?.large)
+
+                val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                    activity,
+                    androidx.core.util.Pair.create(image, image.transitionName)
+                )
+
+                val extras = ActivityNavigatorExtras(options)
+
+                // We only use this for fragment transactions
+//                val extras = FragmentNavigatorExtras(
+//                    image to image.transitionName
+//                )
                 Navigation.findNavController(it).navigate(detailAction, extras)
             }
         }

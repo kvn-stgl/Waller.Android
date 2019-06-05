@@ -12,12 +12,12 @@
         tools:layout="@layout/wallpaper_list_fragment">
         <action
             android:id="@+id/action_navigation_detail"
-            app:destination="@id/navigation_detail"
+            app:destination="@+id/navigation_detail_activity"
             app:exitAnim="@anim/nav_default_exit_anim"/>
         <argument
             android:name="DisplayType"
             android:defaultValue="TOPLIST"
-            app:argType="de.kevin_stieglitz.waller.ui.DisplayType"/>
+            app:argType="de.kevin_stieglitz.waller.model.DisplayType"/>
     </fragment>
     <fragment
         android:id="@+id/navigation_latest"
@@ -26,11 +26,11 @@
         tools:layout="@layout/wallpaper_list_fragment">
         <action
             android:id="@+id/action_navigation_detail"
-            app:destination="@id/navigation_detail"/>
+            app:destination="@+id/navigation_detail_activity"/>
         <argument
             android:name="DisplayType"
             android:defaultValue="LATEST"
-            app:argType="de.kevin_stieglitz.waller.ui.DisplayType"/>
+            app:argType="de.kevin_stieglitz.waller.model.DisplayType"/>
     </fragment>
     <fragment
         android:id="@+id/navigation_random"
@@ -39,11 +39,11 @@
         tools:layout="@layout/wallpaper_list_fragment">
         <action
             android:id="@+id/action_navigation_detail"
-            app:destination="@id/navigation_detail"/>
+            app:destination="@+id/navigation_detail_activity"/>
         <argument
             android:name="DisplayType"
             android:defaultValue="RANDOM"
-            app:argType="de.kevin_stieglitz.waller.ui.DisplayType"/>
+            app:argType="de.kevin_stieglitz.waller.model.DisplayType"/>
     </fragment>
     <fragment
         android:id="@+id/navigation_detail"
@@ -62,4 +62,18 @@
         android:id="@+id/action_about_us"
         android:name="de.kevin_stieglitz.waller.ui.AboutFragment"
         android:label="@string/action_about_us"/>
+    <activity
+        android:id="@+id/navigation_detail_activity"
+        android:name="de.kevin_stieglitz.waller.ui.WallpaperDetailActivity"
+        android:label="activity_wallpaper_detail"
+        tools:layout="@layout/activity_wallpaper_detail">
+
+        <argument
+            android:name="imageId"
+            app:argType="string"/>
+        <argument
+            android:name="imageThumb"
+            app:argType="string"
+            app:nullable="true"/>
+    </activity>
 </navigation>

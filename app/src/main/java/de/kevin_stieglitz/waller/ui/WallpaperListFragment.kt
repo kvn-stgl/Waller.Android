@@ -51,7 +51,7 @@ class WallpaperListFragment : Fragment() {
     }
 
     private fun initAdapter() {
-        val adapter = WallpaperAdapter(requireContext())
+        val adapter = WallpaperAdapter(requireActivity())
 
         model.posts.observe(viewLifecycleOwner, Observer {
             adapter.submitList(it)
