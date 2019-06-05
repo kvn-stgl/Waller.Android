@@ -1,5 +1,6 @@
 package de.kevin_stieglitz.waller.backend
 
+import de.kevin_stieglitz.waller.BuildConfig
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -8,18 +9,18 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 
-object Rest {
+class Rest {
 
-    private const val BASE_URL = "https://wallhaven.cc"
-
-    private const val WALLER_RESIZE_URL = "image/resize/%d/%d.jpg"
+    private val BASE_URL = "https://wallhaven.cc"
 
     val waller: WallerApi
 
     init {
 
         val logging = HttpLoggingInterceptor()
-        logging.level = HttpLoggingInterceptor.Level.BASIC
+
+        if (BuildConfig.DEBUG)
+            logging.level = HttpLoggingInterceptor.Level.HEADERS
 
         val cacheSize = 10 * 1024 * 1024 // 10MB
 
@@ -45,9 +46,5 @@ object Rest {
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()
             .create(WallerApi::class.java)
-    }
-
-    fun wallerResizeUrl(id: Long, height: Int): String {
-        return BASE_URL + WALLER_RESIZE_URL.format(id, height)
     }
 }

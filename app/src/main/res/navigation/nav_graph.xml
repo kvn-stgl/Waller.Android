@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/navigation_toplist"
-        android:name="de.kevin_stieglitz.waller.ui.WallpaperList"
+        android:name="de.kevin_stieglitz.waller.ui.WallpaperListFragment"
         android:label="@string/title_toplist"
         tools:layout="@layout/wallpaper_list_fragment">
         <action
@@ -21,7 +21,7 @@
     </fragment>
     <fragment
         android:id="@+id/navigation_latest"
-        android:name="de.kevin_stieglitz.waller.ui.WallpaperList"
+        android:name="de.kevin_stieglitz.waller.ui.WallpaperListFragment"
         android:label="@string/title_latest"
         tools:layout="@layout/wallpaper_list_fragment">
         <action
@@ -34,7 +34,7 @@
     </fragment>
     <fragment
         android:id="@+id/navigation_random"
-        android:name="de.kevin_stieglitz.waller.ui.WallpaperList"
+        android:name="de.kevin_stieglitz.waller.ui.WallpaperListFragment"
         android:label="@string/title_random"
         tools:layout="@layout/wallpaper_list_fragment">
         <action
@@ -47,7 +47,7 @@
     </fragment>
     <fragment
         android:id="@+id/navigation_detail"
-        android:name="de.kevin_stieglitz.waller.ui.WallpaperDetail"
+        android:name="de.kevin_stieglitz.waller.ui.WallpaperDetailFragment"
         android:label="@string/title_wallpaper_detail"
         tools:layout="@layout/wallpaper_detail_fragment">
         <argument

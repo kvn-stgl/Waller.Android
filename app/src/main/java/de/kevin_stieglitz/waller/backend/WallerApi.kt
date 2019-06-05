@@ -12,7 +12,8 @@ interface WallerApi {
     @GET("/api/v1/search")
     fun search(
         @Query("q") query: String? = null,
-        @Query("sorting") sorting: String? = null
+        @Query("sorting") sorting: String? = null,
+        @Query("page") page: Int? = null
     ): Single<WallpaperSearchData>;
 
     @GET("/api/v1/w/{id}")

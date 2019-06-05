@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'androidx.navigation.safeargs'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 28
@@ -53,7 +54,7 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-gson:2.5.0"
 
     implementation 'com.facebook.fresco:fresco:1.13.0'
-    
+
     implementation 'com.squareup.okhttp3:logging-interceptor:3.14.1'
 
     implementation 'com.uber.autodispose:autodispose:1.1.0'
@@ -69,8 +70,28 @@ dependencies {
     implementation 'com.github.medyo:android-about-page:1.2.5'
     implementation 'com.github.chrisbanes:PhotoView:2.3.0'
 
-    implementation 'com.google.android.material:material:1.1.0-alpha06'
+    implementation 'com.google.android.material:material:1.1.0-alpha07'
 
+    implementation "androidx.room:room-runtime:2.1.0-rc01"
+    kapt "androidx.room:room-compiler:2.1.0-rc01"
+
+    // optional - Kotlin Extensions and Coroutines support for Room
+    implementation "androidx.room:room-ktx:2.1.0-rc01"
+
+    // optional - RxJava support for Room
+    implementation "androidx.room:room-rxjava2:2.1.0-rc01"
+
+    // Koin for Android
+    implementation 'org.koin:koin-android:2.0.1'
+    implementation 'org.koin:koin-androidx-ext:2.0.1'
+    implementation 'org.koin:koin-androidx-scope:2.0.1'
+    implementation 'org.koin:koin-androidx-viewmodel:2.0.1'
+
+    // Paging
+    implementation "androidx.paging:paging-runtime-ktx:2.1.0"
+    implementation "androidx.paging:paging-rxjava2-ktx:2.1.0"
+
+    debugImplementation 'com.amitshekhar.android:debug-db:1.0.6'
 
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.6.3'
     releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.6.3'

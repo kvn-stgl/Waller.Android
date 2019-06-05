@@ -4,23 +4,26 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import de.kevin_stieglitz.waller.R
 import de.kevin_stieglitz.waller.adapter.WallpaperAdapter
+import de.kevin_stieglitz.waller.extension.NetworkState
+import de.kevin_stieglitz.waller.extension.Status
 import kotlinx.android.synthetic.main.wallpaper_list_fragment.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
-class WallpaperList : Fragment() {
+class WallpaperListFragment : Fragment() {
 
-    private val wallpaperListArgs by navArgs<WallpaperListArgs>()
+    private val wallpaperListArgs by navArgs<WallpaperListFragmentArgs>()
 
-    private lateinit var viewModel: WallpaperListViewModel
+    private val model: WallpaperListViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,18 +42,40 @@ class WallpaperList : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(requireActivity()).get(WallpaperListViewModel::class.java)
 
+        model.search(wallpaperListArgs.displayType)
+
+        initAdapter()
+        initSwipeToRefresh()
+        initNetworkState()
+    }
+
+    private fun initAdapter() {
         val adapter = WallpaperAdapter(requireContext())
 
-        viewModel.wallpapers(wallpaperListArgs.displayType).observe(viewLifecycleOwner, Observer {
-            if (it?.wallpaperSearchEntries?.isNotEmpty() == true) {
-                adapter.list = it.wallpaperSearchEntries
-            }
+        model.posts.observe(viewLifecycleOwner, Observer {
+            adapter.submitList(it)
         })
 
         recyclerview_images.adapter = adapter
         recyclerview_images.layoutManager = GridLayoutManager(context, 2)
+    }
+
+    private fun initSwipeToRefresh() {
+        model.refreshState.observe(viewLifecycleOwner, Observer {
+            swipe_refresh.isRefreshing = it == NetworkState.LOADING
+        })
+        swipe_refresh.setOnRefreshListener {
+            model.refresh()
+        }
+    }
+
+    private fun initNetworkState() {
+        model.networkState.observe(viewLifecycleOwner, Observer {
+            if (it.status == Status.FAILED) {
+                Toast.makeText(context, it.msg, Toast.LENGTH_LONG).show()
+            }
+        })
     }
 
 }

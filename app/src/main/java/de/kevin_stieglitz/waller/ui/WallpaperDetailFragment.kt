@@ -9,7 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.navArgs
 import androidx.transition.TransitionInflater
@@ -23,14 +22,15 @@ import com.facebook.imagepipeline.request.ImageRequest
 import com.facebook.imagepipeline.request.ImageRequestBuilder
 import de.kevin_stieglitz.waller.R
 import kotlinx.android.synthetic.main.wallpaper_detail_fragment.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
 
-class WallpaperDetail : Fragment() {
+class WallpaperDetailFragment : Fragment() {
 
-    private val wallpaperArgs by navArgs<WallpaperDetailArgs>()
+    private val wallpaperArgs by navArgs<WallpaperDetailFragmentArgs>()
 
-    private lateinit var viewModel: WallpaperDetailViewModel
+    private val detailViewModel: WallpaperDetailViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,9 +73,7 @@ class WallpaperDetail : Fragment() {
             NavHostFragment.findNavController(this).navigateUp()
         }
 
-        viewModel = ViewModelProviders.of(this).get(WallpaperDetailViewModel::class.java)
-
-        viewModel.wallpaper(wallpaperArgs.imageId).observe(viewLifecycleOwner, Observer {
+        detailViewModel.wallpaper(wallpaperArgs.imageId).observe(viewLifecycleOwner, Observer {
             val posterUri = Uri.parse(it.path)
             val request = ImageRequestBuilder.newBuilderWithSource(posterUri)
                 .setProgressiveRenderingEnabled(true)

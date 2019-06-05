@@ -1,4 +1,4 @@
-package de.kevin_stieglitz.waller.ui
+package de.kevin_stieglitz.waller.model
 
 enum class DisplayType(val sorting: String) {
     TOPLIST("toplist"),
