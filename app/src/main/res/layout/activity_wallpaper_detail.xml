@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
+    android:fitsSystemWindows="false"
     tools:context=".ui.WallpaperDetailActivity">
 
-    <ImageSwitcher
-        android:id="@+id/imageswitcher_wallpaper"
+    <com.github.chrisbanes.photoview.PhotoView
+        android:id="@+id/wallpaperPhotoView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@color/colorPrimary"
+        android:src="@color/primaryColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
@@ -21,8 +21,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="top|start"
+        android:layout_margin="@dimen/content_margin"
         android:background="?attr/selectableItemBackgroundBorderless"
-        android:padding="@dimen/content_margin"
+        android:fitsSystemWindows="true"
         android:src="@drawable/ic_baseline_arrow_back_24px"
         android:theme="@style/RippleStyleLight"
         android:tint="@android:color/white"
@@ -30,4 +31,14 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="ContentDescription"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <include layout="@layout/sheet_activity_wallpaper_detail_info"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabLove"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/content_margin"
+        app:layout_anchor="@+id/bottom_sheet"
+        app:layout_anchorGravity="top|end"/>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

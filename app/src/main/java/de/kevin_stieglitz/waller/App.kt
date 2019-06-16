@@ -15,6 +15,7 @@ import org.koin.androidx.experimental.dsl.viewModel
 import org.koin.core.context.startKoin
 import org.koin.dsl.module
 import org.koin.experimental.builder.single
+import timber.log.Timber
 
 class MainApp : Application() {
 
@@ -22,6 +23,10 @@ class MainApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
+
+        if (BuildConfig.DEBUG) {
+            Timber.plant(Timber.DebugTree())
+        }
 
         startKoin {
             androidLogger()

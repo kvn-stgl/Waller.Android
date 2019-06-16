@@ -35,7 +35,7 @@ class WallpaperAdapter(val activity: Activity) : PagedListAdapter<WallpaperSearc
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemView = LayoutInflater
             .from(parent.context)
-            .inflate(R.layout.view_item_wallpaper, parent, false)
+            .inflate(R.layout.wallpaper_list_view_item, parent, false)
         return ViewHolder(itemView)
     }
 

@@ -3,7 +3,6 @@ package de.kevin_stieglitz.waller.ui
 import androidx.lifecycle.LiveData
 import androidx.paging.PagedList
 import de.kevin_stieglitz.waller.extension.NetworkState
-import io.reactivex.Flowable
 
 /**
  * Data class that is necessary for a UI to show a listing and interact w/ the rest of the system
@@ -11,7 +10,7 @@ import io.reactivex.Flowable
 data class WallpaperListViewState<T>(
 
     // the LiveData of paged lists for the UI to observe
-    val pagedList: Flowable<PagedList<T>>,
+    val pagedList: LiveData<PagedList<T>>,
 
     // represents the network request status to show to the user
     val networkState: LiveData<NetworkState>,

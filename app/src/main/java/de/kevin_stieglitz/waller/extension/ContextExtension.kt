@@ -14,3 +14,23 @@ fun Context.checkConnection(): Boolean {
     }
     return false
 }
+
+fun Context.actionBarHeight(): Int {
+    // navigation bar height
+    var navigationBarHeight = 0
+    val resourceId = resources.getIdentifier("navigation_bar_height", "dimen", "android")
+    if (resourceId > 0) {
+        navigationBarHeight = resources.getDimensionPixelSize(resourceId)
+    }
+    return navigationBarHeight
+}
+
+fun Context.statusBarHeight(): Int {
+    // status bar height
+    var statusBarHeight = 0
+    val resourceId = resources.getIdentifier("status_bar_height", "dimen", "android")
+    if (resourceId > 0) {
+        statusBarHeight = resources.getDimensionPixelSize(resourceId)
+    }
+    return statusBarHeight
+}

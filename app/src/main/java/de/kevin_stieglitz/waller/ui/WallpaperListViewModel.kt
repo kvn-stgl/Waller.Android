@@ -4,7 +4,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations.map
 import androidx.lifecycle.Transformations.switchMap
 import androidx.lifecycle.ViewModel
-import de.kevin_stieglitz.waller.extension.toLiveData
 import de.kevin_stieglitz.waller.model.DisplayType
 import de.kevin_stieglitz.waller.repository.WallpaperSearchRepository
 
@@ -16,7 +15,7 @@ class WallpaperListViewModel(
     private val repoResult = map(searchCategory) {
         wallpaperSearchRepository.wallpaper(sorting = it)
     }
-    val posts = switchMap(repoResult) { it.pagedList.toLiveData() }
+    val posts = switchMap(repoResult) { it.pagedList }
     val networkState = switchMap(repoResult) { it.networkState }
     val refreshState = switchMap(repoResult) { it.refreshState }
 

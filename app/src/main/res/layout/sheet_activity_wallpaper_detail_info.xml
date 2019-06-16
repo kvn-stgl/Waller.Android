@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                   xmlns:tools="http://schemas.android.com/tools"
+                                                   android:id="@+id/bottom_sheet"
+                                                   android:layout_width="match_parent"
+                                                   android:layout_height="500dp"
+                                                   android:background="@drawable/bg_bottom_sheet_dialog_fragment"
+                                                   android:clickable="true"
+                                                   android:fitsSystemWindows="true"
+                                                   android:focusable="true"
+                                                   android:gravity="center_horizontal"
+                                                   android:orientation="vertical"
+                                                   app:behavior_hideable="true"
+                                                   app:behavior_peekHeight="50dp"
+                                                   app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+    <ImageView
+        android:id="@+id/sheetArrowUp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/content_margin"
+        android:layout_marginTop="@dimen/content_padding"
+        android:src="@drawable/ic_baseline_keyboard_arrow_up_24px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="HALLO"
+        app:layout_constraintBottom_toBottomOf="@+id/sheetArrowUp"
+        app:layout_constraintStart_toEndOf="@id/sheetArrowUp"
+        app:layout_constraintTop_toTopOf="@+id/sheetArrowUp"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

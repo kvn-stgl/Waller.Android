@@ -78,6 +78,8 @@ class WallpaperPageKeyedDataSource(
         params: LoadInitialParams<Int>,
         callback: LoadInitialCallback<Int, WallpaperSearchEntry>
     ) {
+        Timber.v("params = [${params}], callback = [${callback}]")
+
         networkState.postValue(NetworkState.LOADING)
         initialLoad.postValue(NetworkState.LOADING)
 

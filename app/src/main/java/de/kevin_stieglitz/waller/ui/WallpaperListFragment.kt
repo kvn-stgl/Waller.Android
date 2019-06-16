@@ -17,6 +17,7 @@ import de.kevin_stieglitz.waller.extension.NetworkState
 import de.kevin_stieglitz.waller.extension.Status
 import kotlinx.android.synthetic.main.wallpaper_list_fragment.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 
 
 class WallpaperListFragment : Fragment() {
@@ -39,7 +40,6 @@ class WallpaperListFragment : Fragment() {
         bottom_nav.setupWithNavController(navController)
     }
 
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
@@ -52,8 +52,10 @@ class WallpaperListFragment : Fragment() {
 
     private fun initAdapter() {
         val adapter = WallpaperAdapter(requireActivity())
+        Timber.d("WallpaperListFragment.initAdapter")
 
-        model.posts.observe(viewLifecycleOwner, Observer {
+        model.posts.observe(this, Observer {
+            Timber.d("WallpaperListFragment.initAdapter::observe WallpaperSearchEntry")
             adapter.submitList(it)
         })
 
@@ -62,7 +64,7 @@ class WallpaperListFragment : Fragment() {
     }
 
     private fun initSwipeToRefresh() {
-        model.refreshState.observe(viewLifecycleOwner, Observer {
+        model.refreshState.observe(this, Observer {
             swipe_refresh.isRefreshing = it == NetworkState.LOADING
         })
         swipe_refresh.setOnRefreshListener {
@@ -71,7 +73,7 @@ class WallpaperListFragment : Fragment() {
     }
 
     private fun initNetworkState() {
-        model.networkState.observe(viewLifecycleOwner, Observer {
+        model.networkState.observe(this, Observer {
             if (it.status == Status.FAILED) {
                 Toast.makeText(context, it.msg, Toast.LENGTH_LONG).show()
             }
