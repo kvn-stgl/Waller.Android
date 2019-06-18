@@ -1,23 +1,25 @@
 package de.kevin_stieglitz.waller.ui
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.MutableLiveData
+import com.uber.autodispose.autoDisposable
 import de.kevin_stieglitz.waller.backend.WallerApi
-import de.kevin_stieglitz.waller.extension.toLiveData
 import de.kevin_stieglitz.waller.model.Wallpaper
+import de.kevin_stieglitz.waller.ui.custom.AutoDisposeViewModel
 import io.reactivex.schedulers.Schedulers
+import timber.log.Timber
 
 class WallpaperDetailViewModel(
     private val wallerApi: WallerApi
-) : ViewModel() {
+) : AutoDisposeViewModel() {
 
-    fun wallpaper(id: String): LiveData<Wallpaper> {
-        return wallerApi
+    val wallpaper = MutableLiveData<Wallpaper>()
+
+    fun loadWallpaper(id: String) {
+        wallerApi
             .detail(id)
             .subscribeOn(Schedulers.io())
-            .map { it.data }
-            .toFlowable()
-            .toLiveData()
+            .autoDisposable(this)
+            .subscribe({ wallpaper.postValue(it.data) }, { Timber.e(it, "Error receiving loadWallpaper") })
     }
 
 }

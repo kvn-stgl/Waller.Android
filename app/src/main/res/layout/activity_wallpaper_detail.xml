@@ -1,44 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="false"
-    tools:context=".ui.WallpaperDetailActivity">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
 
-    <com.github.chrisbanes.photoview.PhotoView
-        android:id="@+id/wallpaperPhotoView"
+    <data>
+
+        <variable
+            name="model"
+            type="de.kevin_stieglitz.waller.ui.WallpaperDetailViewModel"/>
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        tools:context=".ui.WallpaperDetailActivity"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@color/primaryColor"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        android:fitsSystemWindows="false">
 
-    <ImageView
-        android:id="@+id/back"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="top|start"
-        android:layout_margin="@dimen/content_margin"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:fitsSystemWindows="true"
-        android:src="@drawable/ic_baseline_arrow_back_24px"
-        android:theme="@style/RippleStyleLight"
-        android:tint="@android:color/white"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="ContentDescription"/>
+        <com.github.chrisbanes.photoview.PhotoView
+            android:id="@+id/wallpaperPhotoView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@color/primaryColor"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
 
-    <include layout="@layout/sheet_activity_wallpaper_detail_info"/>
+        <ImageView
+            android:id="@+id/back"
+            tools:ignore="ContentDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|start"
+            android:layout_margin="@dimen/content_margin"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:fitsSystemWindows="true"
+            android:src="@drawable/ic_baseline_arrow_back_24px"
+            android:theme="@style/RippleStyleLight"
+            android:tint="@android:color/white"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabLove"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/content_margin"
-        app:layout_anchor="@+id/bottom_sheet"
-        app:layout_anchorGravity="top|end"/>
+        <include
+            layout="@layout/sheet_activity_wallpaper_detail_info"
+            app:model="@{model}"/>
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabLove"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/content_margin"
+            app:layout_anchor="@+id/bottom_sheet"
+            app:layout_anchorGravity="top|end"/>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

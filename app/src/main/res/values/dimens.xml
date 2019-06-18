@@ -10,4 +10,8 @@
     <!-- Bottom sheet -->
     <dimen name="bottom_sheet_corner_radius">16dp</dimen>
     <dimen name="bottom_sheet_top_padding">8dp</dimen>
+
+    <!-- Wallpaper Detail margin -->
+    <dimen name="wallpaper_detail_content_padding">16dp</dimen>
+    <dimen name="wallpaper_detail_content_image_padding">16dp</dimen>
 </resources>

@@ -5,11 +5,13 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.navigation.navArgs
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.squareup.picasso.Picasso
 import de.kevin_stieglitz.waller.R
+import de.kevin_stieglitz.waller.databinding.ActivityWallpaperDetailBinding
 import de.kevin_stieglitz.waller.extension.PicassoScaleTransform
 import de.kevin_stieglitz.waller.extension.actionBarHeight
 import de.kevin_stieglitz.waller.extension.cachedPicassoBitmap
@@ -27,7 +29,10 @@ class WallpaperDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContentView(R.layout.activity_wallpaper_detail)
+        val binding: ActivityWallpaperDetailBinding = DataBindingUtil.setContentView(this, R.layout.activity_wallpaper_detail)
+        binding.lifecycleOwner = this
+        binding.model = detailViewModel
+
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         initImage()
@@ -78,12 +83,14 @@ class WallpaperDetailActivity : AppCompatActivity() {
         wallpaperPhotoView.setImageBitmap(this.cachedPicassoBitmap(wallpaperArgs.imageThumb))
 
         val displayMetrics = Resources.getSystem().displayMetrics
-        detailViewModel.wallpaper(wallpaperArgs.imageId).observe(this, Observer {
+        detailViewModel.wallpaper.observe(this, Observer {
             Picasso.with(this)
                 .load(it.path)
                 .transform(PicassoScaleTransform(displayMetrics.heightPixels, displayMetrics.widthPixels))
                 .noPlaceholder()
                 .into(wallpaperPhotoView)
         })
+
+        detailViewModel.loadWallpaper(wallpaperArgs.imageId)
     }
 }
