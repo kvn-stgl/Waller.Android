@@ -3,6 +3,7 @@ package de.kevin_stieglitz.waller.model
 import androidx.room.Dao
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import java.util.*
 
 
 class WallpaperData {
@@ -31,11 +32,11 @@ class Wallpaper {
 
     @SerializedName("views")
     @Expose
-    var views: Int? = null
+    var views: Long? = null
 
     @SerializedName("favorites")
     @Expose
-    var favorites: Int? = null
+    var favorites: Long? = null
 
     @SerializedName("source")
     @Expose
@@ -67,7 +68,7 @@ class Wallpaper {
 
     @SerializedName("file_size")
     @Expose
-    var fileSize: Int? = null
+    var fileSize: Long? = null
 
     @SerializedName("file_type")
     @Expose
@@ -75,7 +76,7 @@ class Wallpaper {
 
     @SerializedName("created_at")
     @Expose
-    var createdAt: String? = null
+    var createdAt: Date? = null
 
     @SerializedName("colors")
     @Expose

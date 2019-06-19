@@ -1,5 +1,6 @@
 package de.kevin_stieglitz.waller.backend
 
+import com.google.gson.GsonBuilder
 import de.kevin_stieglitz.waller.BuildConfig
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -39,10 +40,14 @@ class Rest {
             .connectTimeout(30, TimeUnit.SECONDS)
             .build()
 
+        val gson = GsonBuilder()
+            .setDateFormat("yyyy-MM-dd HH:mm:ss")
+            .create()
+
         waller = Retrofit.Builder()
             .baseUrl(BASE_URL)
             .client(client)
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create(gson))
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()
             .create(WallerApi::class.java)
