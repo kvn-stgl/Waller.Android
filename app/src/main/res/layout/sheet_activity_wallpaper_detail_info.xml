@@ -10,8 +10,8 @@
             type="de.kevin_stieglitz.waller.ui.WallpaperDetailViewModel"/>
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/bottom_sheet"
+    <androidx.constraintlayout.motion.widget.MotionLayout
+        android:id="@+id/detailBottomSheet"
         android:layout_width="match_parent"
         android:layout_height="500dp"
         android:background="@drawable/bg_bottom_sheet_dialog_fragment"
@@ -22,41 +22,45 @@
         android:orientation="vertical"
         app:behavior_hideable="true"
         app:behavior_peekHeight="50dp"
-        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+        app:layoutDescription="@xml/scene_wallpaper_detail"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+        tools:showPaths="true">
 
         <ImageView
             android:id="@+id/sheetArrowUp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/content_margin"
-            android:layout_marginTop="@dimen/content_padding"
             android:src="@drawable/ic_baseline_keyboard_arrow_up_24px"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription"/>
+
+        <ImageView
+            android:id="@+id/imageCategory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingEnd="0dp"
+            android:paddingStart="@dimen/wallpaper_detail_content_image_padding"
+            android:src="@drawable/ic_baseline_layers_24px"
             tools:ignore="ContentDescription"/>
 
         <TextView
+            android:id="@+id/textHashtags"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:text="HALLO"
-            app:layout_constraintBottom_toBottomOf="@+id/sheetArrowUp"
-            app:layout_constraintStart_toEndOf="@id/sheetArrowUp"
-            app:layout_constraintTop_toTopOf="@+id/sheetArrowUp"/>
+            android:ellipsize="end"
+            android:maxLines="1"
+            app:wallpaperTags="@{model.wallpaper.tags}"
+            tools:layout_editor_absoluteY="8dp"
+            tools:text="#demo #test #hallo"/>
 
         <TextView
             android:id="@+id/textCategory"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:drawablePadding="@dimen/wallpaper_detail_content_image_padding"
-            android:drawableStart="@drawable/ic_baseline_layers_24px"
             android:ellipsize="end"
             android:gravity="center_vertical"
             android:maxLines="1"
             android:padding="@dimen/wallpaper_detail_content_padding"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/sheetArrowUp"
-            app:layout_constraintWidth_percent="0.5"
+            app:layout_constraintEnd_toStartOf="@+id/textViews"
             app:upperChar="@{model.wallpaper.category}"
             tools:text="Anime"/>
 
@@ -71,107 +75,111 @@
             android:maxLines="1"
             android:padding="@dimen/wallpaper_detail_content_padding"
             android:text="@{String.valueOf(model.wallpaper.views)}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/textCategory"
-            app:layout_constraintWidth_percent="0.5"
             tools:text="42"/>
 
-        <TextView
-            android:id="@+id/textDetailSize"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:drawablePadding="@dimen/wallpaper_detail_content_image_padding"
-            android:drawableStart="@drawable/ic_baseline_photo_size_select_large_24px"
-            android:ellipsize="end"
-            android:gravity="center_vertical"
-            android:maxLines="1"
-            android:padding="@dimen/wallpaper_detail_content_padding"
-            android:text="@{model.wallpaper.resolution}"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textCategory"
-            app:layout_constraintWidth_percent="0.5"
-            tools:text="1920x1080 px"/>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/detailsContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/textDetailFavorites"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:drawablePadding="@dimen/wallpaper_detail_content_image_padding"
-            android:drawableStart="@drawable/ic_baseline_favorite_24px"
-            android:ellipsize="end"
-            android:gravity="center_vertical"
-            android:maxLines="1"
-            android:padding="@dimen/wallpaper_detail_content_padding"
-            android:text="@{String.valueOf(model.wallpaper.favorites)}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/textDetailSize"
-            app:layout_constraintWidth_percent="0.5"
-            tools:text="12"/>
+            <TextView
+                android:id="@+id/textDetailSize"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:drawablePadding="@dimen/wallpaper_detail_content_image_padding"
+                android:drawableStart="@drawable/ic_baseline_photo_size_select_large_24px"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:padding="@dimen/wallpaper_detail_content_padding"
+                android:text="@{model.wallpaper.resolution}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_percent="0.5"
+                tools:text="1920x1080 px"/>
 
-        <TextView
-            android:id="@+id/textDetailFileSize"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:drawablePadding="@dimen/wallpaper_detail_content_image_padding"
-            android:drawableStart="@drawable/ic_baseline_attachment_24px"
-            android:ellipsize="end"
-            android:gravity="center_vertical"
-            android:maxLines="1"
-            android:padding="@dimen/wallpaper_detail_content_padding"
-            app:fileSize="@{model.wallpaper.fileSize}"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textDetailSize"
-            app:layout_constraintWidth_percent="0.5"
-            tools:text="129 kb"/>
+            <TextView
+                android:id="@+id/textDetailFavorites"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:drawablePadding="@dimen/wallpaper_detail_content_image_padding"
+                android:drawableStart="@drawable/ic_baseline_favorite_24px"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:padding="@dimen/wallpaper_detail_content_padding"
+                android:text="@{String.valueOf(model.wallpaper.favorites)}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/textDetailSize"
+                app:layout_constraintWidth_percent="0.5"
+                tools:text="12"/>
 
-        <TextView
-            android:id="@+id/textDetailFileType"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:drawablePadding="@dimen/wallpaper_detail_content_image_padding"
-            android:drawableStart="@drawable/ic_baseline_camera_24px"
-            android:ellipsize="end"
-            android:gravity="center_vertical"
-            android:maxLines="1"
-            android:padding="@dimen/wallpaper_detail_content_padding"
-            android:text="@{model.wallpaper.fileType}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/textDetailFileSize"
-            app:layout_constraintWidth_percent="0.5"
-            tools:text="Jpeg"/>
+            <TextView
+                android:id="@+id/textDetailFileSize"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:drawablePadding="@dimen/wallpaper_detail_content_image_padding"
+                android:drawableStart="@drawable/ic_baseline_attachment_24px"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:padding="@dimen/wallpaper_detail_content_padding"
+                app:fileSize="@{model.wallpaper.fileSize}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textDetailSize"
+                app:layout_constraintWidth_percent="0.5"
+                tools:text="129 kb"/>
+
+            <TextView
+                android:id="@+id/textDetailFileType"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:drawablePadding="@dimen/wallpaper_detail_content_image_padding"
+                android:drawableStart="@drawable/ic_baseline_camera_24px"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:padding="@dimen/wallpaper_detail_content_padding"
+                android:text="@{model.wallpaper.fileType}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/textDetailFileSize"
+                app:layout_constraintWidth_percent="0.5"
+                tools:text="Jpeg"/>
 
 
-        <TextView
-            android:id="@+id/textDetailPerson"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:drawablePadding="@dimen/wallpaper_detail_content_image_padding"
-            android:drawableStart="@drawable/ic_baseline_person_24px"
-            android:ellipsize="end"
-            android:gravity="center_vertical"
-            android:maxLines="1"
-            android:padding="@dimen/wallpaper_detail_content_padding"
-            android:text="@{model.wallpaper.uploader.username}"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textDetailFileSize"
-            app:layout_constraintWidth_percent="0.5"
-            tools:text="John Laaaaaaaarge"/>
+            <TextView
+                android:id="@+id/textDetailPerson"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:drawablePadding="@dimen/wallpaper_detail_content_image_padding"
+                android:drawableStart="@drawable/ic_baseline_person_24px"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:padding="@dimen/wallpaper_detail_content_padding"
+                android:text="@{model.wallpaper.uploader.username}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textDetailFileSize"
+                app:layout_constraintWidth_percent="0.5"
+                tools:text="John Laaaaaaaarge"/>
 
-        <TextView
-            android:id="@+id/textDetailDate"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:drawablePadding="@dimen/wallpaper_detail_content_image_padding"
-            android:drawableStart="@drawable/ic_baseline_person_24px"
-            android:ellipsize="end"
-            android:gravity="center_vertical"
-            android:maxLines="1"
-            android:padding="@dimen/wallpaper_detail_content_padding"
-            app:date="@{model.wallpaper.createdAt}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/textDetailPerson"
-            app:layout_constraintWidth_percent="0.5"
-            tools:text="12.06.2019 12:02"/>
+            <TextView
+                android:id="@+id/textDetailDate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:drawablePadding="@dimen/wallpaper_detail_content_image_padding"
+                android:drawableStart="@drawable/ic_baseline_person_24px"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:padding="@dimen/wallpaper_detail_content_padding"
+                app:date="@{model.wallpaper.createdAt}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/textDetailPerson"
+                app:layout_constraintWidth_percent="0.5"
+                tools:text="12.06.2019 12:02"/>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.motion.widget.MotionLayout>
 </layout>

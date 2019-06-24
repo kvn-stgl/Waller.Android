@@ -48,7 +48,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/content_margin"
-            app:layout_anchor="@+id/bottom_sheet"
+            app:layout_anchor="@+id/detailBottomSheet"
             app:layout_anchorGravity="top|end"/>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

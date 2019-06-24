@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.navigation.navArgs
@@ -43,15 +44,16 @@ class WallpaperDetailActivity : AppCompatActivity() {
         fabLove.scaleX = 0f
         fabLove.scaleY = 0f
 
-        val bottomSheetBehavior = BottomSheetBehavior.from(bottom_sheet)
+        val bottomSheetBehavior = BottomSheetBehavior.from(detailBottomSheet)
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN;
         bottomSheetBehavior.peekHeight = bottomSheetBehavior.peekHeight + actionBarHeight()
         bottomSheetBehavior.setBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
             override fun onSlide(bottomSheet: View, slideOffset: Float) {
-                sheetArrowUp.rotation = slideOffset * 180;
+                val motionLayout = bottomSheet as? MotionLayout ?: return
+                motionLayout.progress = slideOffset
             }
 
-            override fun onStateChanged(bottomSheet: View, newState: Int) {
+            override fun onStateChanged(bottomSheetView: View, newState: Int) {
                 if (BottomSheetBehavior.STATE_DRAGGING == newState || BottomSheetBehavior.STATE_SETTLING == newState) {
                     fabLove.animate().scaleX(0F).scaleY(0F).setDuration(300).start();
                 } else if (BottomSheetBehavior.STATE_COLLAPSED == newState) {

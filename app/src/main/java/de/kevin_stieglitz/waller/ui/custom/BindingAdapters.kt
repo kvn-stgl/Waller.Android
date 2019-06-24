@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.text.format.Formatter
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
+import de.kevin_stieglitz.waller.model.Tag
 import java.text.DateFormat
 import java.util.*
 
@@ -26,5 +27,12 @@ fun TextView.setFileSize(sizeInBytes: Long?) {
 fun TextView.setDate(date: Date?) {
     if (date != null) {
         text = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT).format(date)
+    }
+}
+
+@BindingAdapter("wallpaperTags")
+fun TextView.setWallpaperTags(tags: List<Tag>?) {
+    if (tags != null) {
+        text = tags.joinToString(separator = " ") { if (it.name == null) "" else "#" + it.name }
     }
 }
