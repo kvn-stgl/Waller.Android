@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.app.ActivityOptionsCompat
 import androidx.navigation.ActivityNavigatorExtras
 import androidx.navigation.Navigation
@@ -20,6 +22,9 @@ import de.kevin_stieglitz.waller.ui.WallpaperListFragmentDirections
 
 
 class WallpaperAdapter(val activity: Activity) : PagedListAdapter<WallpaperSearchEntry, WallpaperAdapter.ViewHolder>(DIFF_CALLBACK) {
+
+    private val set = ConstraintSet()
+
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
 
@@ -29,6 +34,13 @@ class WallpaperAdapter(val activity: Activity) : PagedListAdapter<WallpaperSearc
             // Null defines a placeholder item - PagedListAdapter will automatically invalidate
             // this row when the actual object is loaded from the database
             holder.clear()
+        }
+
+        with(set) {
+            val posterRatio = "%d:%d".format(item?.dimensionX, item?.dimensionY)
+            clone(holder.constraintLayout)
+            setDimensionRatio(holder.image.id, posterRatio)
+            applyTo(holder.constraintLayout)
         }
     }
 
@@ -40,9 +52,11 @@ class WallpaperAdapter(val activity: Activity) : PagedListAdapter<WallpaperSearc
     }
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        private var title: TextView = view.findViewById(R.id.title_wallpaper)
-        private var image: ImageView = view.findViewById(R.id.image_wallpaper)
+        var title: TextView = view.findViewById(R.id.title_wallpaper)
+        var image: ImageView = view.findViewById(R.id.image_wallpaper)
+        var constraintLayout: ConstraintLayout = view.findViewById(R.id.parentContsraint)
         private var view: CardView = view as CardView
+
 
         fun bind(value: WallpaperSearchEntry) {
             image.transitionName = activity.getString(R.string.transition_wallpaper, value.id)
@@ -50,12 +64,12 @@ class WallpaperAdapter(val activity: Activity) : PagedListAdapter<WallpaperSearc
             title.text = value.resolution
 
             Picasso.with(image.context)
-                .load(value.thumbs?.large)
+                .load(value.thumbs?.original)
                 .into(image)
 
             view.setOnClickListener {
 
-                val detailAction = WallpaperListFragmentDirections.actionNavigationDetail(value.id, value.thumbs?.large)
+                val detailAction = WallpaperListFragmentDirections.actionNavigationDetail(value.id, value.thumbs?.original)
 
                 val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
                     activity,

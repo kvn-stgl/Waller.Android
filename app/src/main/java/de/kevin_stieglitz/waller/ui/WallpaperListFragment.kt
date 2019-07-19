@@ -10,7 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.ui.setupWithNavController
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import de.kevin_stieglitz.waller.R
 import de.kevin_stieglitz.waller.adapter.WallpaperAdapter
 import de.kevin_stieglitz.waller.extension.NetworkState
@@ -60,7 +60,7 @@ class WallpaperListFragment : Fragment() {
         })
 
         recyclerview_images.adapter = adapter
-        recyclerview_images.layoutManager = GridLayoutManager(context, 2)
+        recyclerview_images.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
     }
 
     private fun initSwipeToRefresh() {
