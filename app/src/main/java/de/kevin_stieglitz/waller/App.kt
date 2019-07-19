@@ -56,6 +56,5 @@ class MainApp : Application() {
 
         viewModel<WallpaperListViewModel>()
         viewModel<WallpaperDetailViewModel>()
-
     }
 }

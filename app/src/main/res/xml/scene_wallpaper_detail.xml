@@ -10,21 +10,14 @@
     </Transition>
 
     <ConstraintSet android:id="@+id/start">
-        <Constraint
-            android:id="@+id/textCategory"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="@+id/sheetArrowUp"
-            app:layout_constraintStart_toEndOf="@id/sheetArrowUp"
-            app:layout_constraintTop_toTopOf="@+id/sheetArrowUp"/>
 
         <Constraint
-            android:id="@+id/textHashtags"
+            android:id="@+id/textHashtag"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="@+id/sheetArrowUp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/textCategory"
+            app:layout_constraintStart_toEndOf="@id/sheetArrowUp"
             app:layout_constraintTop_toTopOf="@+id/sheetArrowUp"
             android:alpha="1"/>
 
@@ -36,23 +29,6 @@
             android:rotation="0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
-
-        <Constraint
-            android:id="@+id/imageCategory"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:alpha="0"
-            app:layout_constraintBottom_toBottomOf="@id/textViews"
-            app:layout_constraintTop_toTopOf="@id/textViews"/>
-
-        <Constraint
-            android:id="@+id/textViews"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:alpha="0"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/sheetArrowUp"
-            app:layout_constraintWidth_percent="0.5"/>
 
         <Constraint
             android:id="@+id/detailsContainer"
@@ -67,18 +43,7 @@
         android:id="@+id/end"
         motion:deriveConstraintsFrom="@id/start">
         <Constraint
-            android:id="@+id/textCategory"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/wallpaper_detail_content_padding"
-            app:layout_constraintBottom_toBottomOf="@id/textViews"
-            app:layout_constraintEnd_toStartOf="@id/textViews"
-            app:layout_constraintStart_toEndOf="@id/imageCategory"
-            app:layout_constraintTop_toTopOf="@id/textViews"/>
-
-        <Constraint
-            android:id="@+id/textHashtags"
-            android:layout_width="0dp"
+            android:id="@+id/textHashtag"
             android:layout_height="wrap_content"
             android:alpha="0"/>
 
@@ -87,19 +52,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:rotation="180"/>
-
-        <Constraint
-            android:id="@+id/imageCategory"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:alpha="1"/>
-
-        <Constraint
-            android:id="@+id/textViews"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:alpha="1"
-            app:layout_constraintWidth_percent="0.5"/>
 
         <Constraint
             android:id="@+id/detailsContainer"

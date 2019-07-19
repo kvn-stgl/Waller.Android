@@ -160,4 +160,8 @@ class Tag {
 
     @SerializedName("created_at")
     var createdAt: String? = null
+
+    override fun toString(): String {
+        return name ?: "null"
+    }
 }

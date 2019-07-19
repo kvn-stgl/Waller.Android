@@ -36,3 +36,10 @@ fun TextView.setWallpaperTags(tags: List<Tag>?) {
         text = tags.joinToString(separator = " ") { if (it.name == null) "" else "#" + it.name }
     }
 }
+
+@BindingAdapter("wallpaperTag")
+fun TextView.setWallpaperTag(tags: List<Tag>?) {
+    if (tags != null && tags.isNotEmpty()) {
+        text = tags.get(0).name
+    }
+}

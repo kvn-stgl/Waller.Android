@@ -103,6 +103,9 @@
     <string name="transition_wallpaper">transaction_wallpaper_%s</string>
     <string name="app_version">Version %s</string>
 
+    <string name="detail_tags">Tags</string>
+    <string name="detail_colors">Farben</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
