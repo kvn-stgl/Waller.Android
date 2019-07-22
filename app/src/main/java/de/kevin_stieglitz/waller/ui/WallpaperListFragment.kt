@@ -89,7 +89,7 @@ class WallpaperListFragment : Fragment() {
 
         searchItem.setOnActionExpandListener(object : MenuItem.OnActionExpandListener {
             override fun onMenuItemActionExpand(item: MenuItem?) = true
-            
+
             override fun onMenuItemActionCollapse(item: MenuItem?): Boolean {
                 searchOptions.searchText = null
                 model.search(searchOptions)
