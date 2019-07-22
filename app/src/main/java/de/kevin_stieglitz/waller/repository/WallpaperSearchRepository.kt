@@ -8,6 +8,7 @@ import androidx.paging.toLiveData
 import de.kevin_stieglitz.waller.Constants.wallheavenElementsPerPage
 import de.kevin_stieglitz.waller.backend.WallerApi
 import de.kevin_stieglitz.waller.model.WallpaperSearchEntry
+import de.kevin_stieglitz.waller.model.WallpaperSearchOptions
 import de.kevin_stieglitz.waller.ui.WallpaperListViewState
 import io.reactivex.disposables.CompositeDisposable
 
@@ -18,7 +19,7 @@ import io.reactivex.disposables.CompositeDisposable
 class WallpaperSearchRepository(
     private val wallerApi: WallerApi
 ) {
-    fun wallpaper(sorting: String?): WallpaperListViewState<WallpaperSearchEntry> {
+    fun wallpaper(searchOptions: WallpaperSearchOptions?): WallpaperListViewState<WallpaperSearchEntry> {
         val compositeDisposable = CompositeDisposable()
 
         val config = PagedList.Config.Builder()
@@ -29,15 +30,14 @@ class WallpaperSearchRepository(
         val sourceFactory = object : DataSource.Factory<Int, WallpaperSearchEntry>() {
             val sourceLiveData = MutableLiveData<WallpaperPageKeyedDataSource>()
             override fun create(): DataSource<Int, WallpaperSearchEntry> {
-                val source = WallpaperPageKeyedDataSource(wallerApi, compositeDisposable, sorting)
+                val source = WallpaperPageKeyedDataSource(wallerApi, compositeDisposable, searchOptions?.toQueryMap())
                 sourceLiveData.postValue(source)
                 return source
             }
         }
 
         return WallpaperListViewState(
-            pagedList = sourceFactory
-                .toLiveData(config),
+            pagedList = sourceFactory.toLiveData(config),
             networkState = Transformations.switchMap(sourceFactory.sourceLiveData) {
                 it.networkState
             },

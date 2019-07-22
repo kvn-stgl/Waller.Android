@@ -6,13 +6,13 @@ import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
+import retrofit2.http.QueryMap
 
 interface WallerApi {
 
     @GET("/api/v1/search")
     fun search(
-        @Query("q") query: String? = null,
-        @Query("sorting") sorting: String? = null,
+        @QueryMap searchOptions: Map<String, String>? = null,
         @Query("page") page: Int? = null
     ): Single<WallpaperSearchData>;
 

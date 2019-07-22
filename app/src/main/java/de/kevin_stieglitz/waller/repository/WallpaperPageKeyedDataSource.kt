@@ -17,7 +17,7 @@ import timber.log.Timber
 class WallpaperPageKeyedDataSource(
     private val wallerApi: WallerApi,
     private val compositeDisposable: CompositeDisposable,
-    private val sorting: String?
+    private val searchOptions: Map<String, String>?
 ) : PageKeyedDataSource<Int, WallpaperSearchEntry>() {
 
     // keep a function reference for the retry event
@@ -58,7 +58,7 @@ class WallpaperPageKeyedDataSource(
             wallerApi
                 .search(
                     page = params.key,
-                    sorting = sorting
+                    searchOptions = searchOptions
                 )
                 .subscribeOn(Schedulers.io())
                 .subscribe({
@@ -85,7 +85,7 @@ class WallpaperPageKeyedDataSource(
 
         compositeDisposable.add(
             wallerApi
-                .search(page = 1, sorting = sorting)
+                .search(page = 1, searchOptions = searchOptions)
                 .subscribeOn(Schedulers.io())
                 .subscribe({
                     retry = null
